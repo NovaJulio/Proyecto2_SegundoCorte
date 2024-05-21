@@ -1,6 +1,10 @@
 package proyecto2_segundocorte;
 
 import java.awt.HeadlessException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import javax.swing.*;
 
 public class list {
@@ -10,18 +14,22 @@ public class list {
     public list() {
         fChild = null;
     }
-    
-    public jardin getultimo(){
+
+    public jardin getultimo() {
         jardin j;
-        if(fChild == null){
+        if (fChild == null) {
             return null;
-        } else{
+        } else {
             j = fChild;
-            while(j.next != fChild){
+            while (j.next != fChild) {
                 j = j.next;
             }
             return j;
         }
+    }
+
+    public boolean empty() {
+        return fChild == null;
     }
 
     public jardin searchid(String st) {
@@ -39,9 +47,9 @@ public class list {
             return null;
         }
     }
-    
+
     public jardin createnodo(JTextField i, JTextField n,
-            JComboBox ge, JComboBox gr, JSlider a){
+            JComboBox ge, JComboBox gr, JSlider a) {
         jardin search = null;
         if (i.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el nombre", "Error", JOptionPane.ERROR_MESSAGE);
@@ -76,6 +84,15 @@ public class list {
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "" + e);
             return null;
+        }
+    }
+
+    public void printTxt() throws FileNotFoundException, UnsupportedEncodingException {
+        jardin p = fChild;
+        File content = new File("user.dir");
+        try {
+            content.createNewFile();
+        } catch (IOException e) {
         }
     }
 }
