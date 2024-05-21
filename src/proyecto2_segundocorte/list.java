@@ -95,7 +95,7 @@ public class list {
         } catch (IOException e) {
         }
     }
-    
+
     public void addChildToEnd(
             JTextField i,
             JTextField n,
@@ -121,5 +121,25 @@ public class list {
             i.grabFocus();
         }
     }
-    
+
+    public jardin Delete(jardin i) {
+        jardin u = getultimo();
+        if (i == fChild) {
+            fChild = i.next;    
+            u.next = fChild;
+            fChild.prev = u;
+            return fChild;
+        } else if (getultimo() == i) {
+            i.prev.next = fChild;
+            fChild.prev = i.prev.next;
+            return null;
+        } else {
+            jardin a = i.prev;
+            jardin b = i.next;
+            a.next = b;
+            b.prev = a;
+            return b;
+        }
+    }
+
 }
