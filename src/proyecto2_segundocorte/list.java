@@ -111,8 +111,8 @@ public class list {
                 jardin ult = getultimo();
                 ult.next = info;
                 info.prev = ult;
-                fChild.prev = info;
-                info.next = fChild;
+                p.prev = info;
+                info.next = p;
             }
             i.setText("");
             n.setText("");
