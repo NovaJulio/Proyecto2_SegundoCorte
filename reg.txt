@@ -1,0 +1,26 @@
+<Registro>
+	<Elemento n°1>
+		Id:1
+		Name:Hola
+		Gender:Primero
+		Grade:Hombre
+		Age:5
+	</Elemento n°1>
+
+	<Elemento n°2>
+		Id:2
+		Name:Ja
+		Gender:Segundo
+		Grade:fem
+		Age:5
+	</Elemento n°2>
+
+	<Elemento n°3>
+		Id:3
+		Name:Loz
+		Gender:Cuarto
+		Grade:fem
+		Age:5
+	</Elemento n°3>
+
+</Registro>
