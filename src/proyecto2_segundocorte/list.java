@@ -52,7 +52,7 @@ public class list {
             JComboBox ge, JComboBox gr, JSlider a) {
         jardin search = null;
         if (i.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingrese el nombre", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ingrese el id", "Error", JOptionPane.ERROR_MESSAGE);
             n.requestFocus();
             return null;
         }
@@ -95,4 +95,51 @@ public class list {
         } catch (IOException e) {
         }
     }
+
+    public void addChildToEnd(
+            JTextField i,
+            JTextField n,
+            JComboBox gr,
+            JComboBox ge,
+            JSlider a) {
+        jardin p = fChild;
+        jardin info = createnodo(i, n, gr, ge, a);
+        if (info != null) {
+            if (p == null) {
+                fChild = info;
+            } else {
+                jardin ult = getultimo();
+                ult.next = info;
+                info.prev = ult;
+                p.prev = info;
+                info.next = p;
+            }
+            i.setText("");
+            n.setText("");
+            gr.setSelectedIndex(0);
+            ge.setSelectedIndex(0);
+            i.grabFocus();
+        }
+    }
+
+    public jardin Delete(jardin i) {
+        jardin u = getultimo();
+        if (i == fChild) {
+            fChild = i.next;    
+            u.next = fChild;
+            fChild.prev = u;
+            return fChild;
+        } else if (getultimo() == i) {
+            i.prev.next = fChild;
+            fChild.prev = i.prev.next;
+            return null;
+        } else {
+            jardin a = i.prev;
+            jardin b = i.next;
+            a.next = b;
+            b.prev = a;
+            return b;
+        }
+    }
+
 }
