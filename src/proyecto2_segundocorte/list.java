@@ -44,11 +44,28 @@ public class list {
             jardin j = fChild;
             do {
                 if (j.Id.equals(st)) {
-                    return null;
+                    return j;
                 } else {
                     j = j.next;
                 }
             } while (j.next != fChild);
+            return null;
+        }
+    }
+
+    public jardin getBuscarCodT(String i) {
+        jardin q = null;
+        if (fChild == null) {
+            return null;
+        } else {
+            q = fChild;
+            do {
+                if ((q.Id).equals(i)) {
+                    return q;
+                } else {
+                    q = q.next;
+                }
+            } while (q != fChild);
             return null;
         }
     }
@@ -58,7 +75,7 @@ public class list {
         jardin search = null;
         if (i.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el id", "Error", JOptionPane.ERROR_MESSAGE);
-            n.requestFocus();
+            i.requestFocus();
             return null;
         }
         if (n.getText().equals("")) {
@@ -127,21 +144,30 @@ public class list {
             JSlider a) {
         jardin p = fChild;
         jardin info = createnodo(i, n, gr, ge, a);
+        jardin ult = getultimo();
         if (info != null) {
-            if (p == null) {
+            if (fChild == null) {
                 fChild = info;
+                fChild.next = fChild;
+                fChild.prev = fChild;
+            } else if (ult == fChild) {
+                fChild.next = info;
+                fChild.prev = info;
+                info.next = fChild;
+                info.prev = fChild;
             } else {
-                jardin ult = getultimo();
                 ult.next = info;
                 info.prev = ult;
-                p.prev = info;
-                info.next = p;
+                info.next = fChild;
+                fChild.prev = info;
             }
             i.setText("");
             n.setText("");
             gr.setSelectedIndex(0);
             ge.setSelectedIndex(0);
-            i.grabFocus();
+            a.setValue(4);
+            System.out.println("Se ha agregado un infante");
+            i.requestFocus();
         }
     }
 
@@ -173,30 +199,28 @@ public class list {
         }
     }
 
-    public jardin Delete(jardin i) {
+    public void Delete(String d) {
         jardin u = getultimo();
-        if (i == fChild) {
-            fChild = i.next;
+        jardin j = searchid(d);
+        if (j == fChild) {
+            fChild = j.next;
             u.next = fChild;
             fChild.prev = u;
-            return fChild;
-        } else if (getultimo() == i) {
-            i.prev.next = fChild;
-            fChild.prev = i.prev.next;
-            return null;
+        } else if (getultimo() == j) {
+            j.prev.next = fChild;
+            fChild.prev = getultimo();
         } else {
-            jardin a = i.prev;
-            jardin b = i.next;
+            jardin a = j.prev;
+            jardin b = j.next;
             a.next = b;
             b.prev = a;
-            return b;
         }
     }
+
     File content = new File("reg.txt");
 
     public void printTxt() throws FileNotFoundException, UnsupportedEncodingException {
         jardin p = fChild;
-
         try {
             if (content.createNewFile()) {
                 try (PrintWriter w = new PrintWriter("reg.txt", "UTF-8")) {
@@ -248,5 +272,4 @@ public class list {
 
     }
 
-    
 }
