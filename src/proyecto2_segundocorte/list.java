@@ -271,5 +271,35 @@ public class list {
         }
 
     }
+    public void importer(){
+        try{
+            FileReader file = new FileReader("reg.txt");
+            BufferedReader reader = new BufferedReader(file);
+            
+            try{
+                String currentLine = reader.readLine();
+                while(true){
+                    String aux = currentLine.replace("\t", "");
+                    
+                    if (aux.startsWith("<E")){
+                        aux = reader.readLine().replace("\t", "");
+                        String[] data = new String[5];
+                        
+                        for (int i = 0; i < 5; i++){
+                            data[i] = aux.split(":")[1];
+                            aux = reader.readLine().replace("\t", "");
+                        }
+                        addChildToEnd(data[0],data[1],data[3],data[2],Integer.parseInt(data[4]));
+                    }else if (aux.startsWith("</R")){break;}
+                    
+                    currentLine = reader.readLine();
+                }
+                
+                reader.close();
+            }catch(IOException ex){}
+            
+            
+        }catch(FileNotFoundException e){}
+    }
 
 }

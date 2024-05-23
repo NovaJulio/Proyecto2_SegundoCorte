@@ -1,9 +1,0 @@
-<Registro>
-	<Elemento n°1>
-		Id:4
-		Name:g
-		Gender:Masculino
-		Grade:Pre-jardin
-		Age:4
-	</Elemento n°1>
-</Registro>

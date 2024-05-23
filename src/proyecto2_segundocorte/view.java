@@ -8,6 +8,7 @@ public class view extends javax.swing.JFrame {
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
+        l.importer();
     }
     
     @SuppressWarnings("unchecked")
