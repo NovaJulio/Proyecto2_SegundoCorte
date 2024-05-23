@@ -2,25 +2,36 @@
 	<Elemento n°1>
 		Id:1
 		Name:Hola
-		Gender:Primero
-		Grade:Hombre
+		Gender:Hombre
+		Grade:Primero
 		Age:5
 	</Elemento n°1>
-
 	<Elemento n°2>
 		Id:2
 		Name:Ja
-		Gender:Segundo
-		Grade:fem
+		Gender:fem
+		Grade:Segundo
 		Age:5
 	</Elemento n°2>
-
 	<Elemento n°3>
 		Id:3
 		Name:Loz
-		Gender:Cuarto
-		Grade:fem
+		Gender:fem
+		Grade:Cuarto
 		Age:5
 	</Elemento n°3>
-
+	<Elemento n°4>
+		Id:7
+		Name:Cart
+		Gender:Hombre
+		Grade:Quinto
+		Age:5
+	</Elemento n°4>
+	<Elemento n°5>
+		Id:192
+		Name:Jhon
+		Gender:Hombre
+		Grade:Sexto
+		Age:5
+	</Elemento n°5>
 </Registro>

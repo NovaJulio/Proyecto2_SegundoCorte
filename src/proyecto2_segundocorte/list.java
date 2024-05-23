@@ -1,11 +1,15 @@
 package proyecto2_segundocorte;
 
 import java.awt.HeadlessException;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class list {
@@ -44,7 +48,7 @@ public class list {
                 } else {
                     j = j.next;
                 }
-            } while (j.next!=fChild);
+            } while (j.next != fChild);
             return null;
         }
     }
@@ -89,7 +93,7 @@ public class list {
     }
 
     public jardin createnodo(String i, String n,
-            String ge, String gr, int a) {
+            String gr, String ge, int a) {
         jardin search = null;
         if (i.equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el id", "Error", JOptionPane.ERROR_MESSAGE);
@@ -112,46 +116,6 @@ public class list {
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "" + e);
             return null;
-        }
-    }
-
-    public void printTxt() throws FileNotFoundException, UnsupportedEncodingException {
-        jardin p = fChild;
-        File content = new File("reg.txt");
-        try {
-            content.createNewFile();
-
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        try (PrintWriter w = new PrintWriter("reg.txt", "UTF-8")) {
-            if (empty()) {
-                w.println("Registro vacio");
-                return;
-            }
-            w.println("<Registro>");
-            System.out.println("<Registro>");
-            int i = 1;
-            do {
-                w.println("\t<Elemento n°" + i + ">");
-                w.println("\t\tId:" + p.Id);
-                w.println("\t\tName:" + p.Name);
-                w.println("\t\tGender:" + p.Gender);
-                w.println("\t\tGrade:" + p.Grade);
-                w.println("\t\tAge:" + p.Age);
-                w.println("\t</Elemento n°" + i + ">\n");
-                System.out.println("\t<Elemento n" + i + ">\n"
-                        + "\t\tId:" + p.Id + "\n"
-                        + "\t\tName:" + p.Name + "\n"
-                        + "\t\tGender:" + p.Gender + "\n"
-                        + "\t\tGrade:" + p.Grade + "\n"
-                        + "\t\tAge:" + p.Age + "\n"
-                        + "\t</Elemento n°" + i + ">\n");
-                p = p.next;
-                i++;
-            } while (p.next != fChild);
-            w.println("</Registro>");
-            System.out.println("</Registro>");
         }
     }
 
@@ -189,24 +153,22 @@ public class list {
             int a) {
         jardin p = fChild;
         jardin info = createnodo(i, n, gr, ge, a);
+        jardin ult = getultimo();
         if (info != null) {
             if (fChild == null) {
                 fChild = info;
                 fChild.next = fChild;
                 fChild.prev = fChild;
-            } else {
-                jardin ult = getultimo();
-                if (ult == fChild) {
-                    fChild.next = info;
-                    fChild.prev = info;
-                    info.next = fChild;
-                    info.prev = fChild;
-                    return;
-                }
-                ult.next = info;
-                info.prev = ult;
+            } else if (ult == fChild) {
+                fChild.next = info;
                 fChild.prev = info;
                 info.next = fChild;
+                info.prev = fChild;
+            } else {
+                ult.next = info;
+                info.prev = ult;
+                info.next = fChild;
+                fChild.prev = info;
             }
         }
     }
@@ -230,5 +192,61 @@ public class list {
             return b;
         }
     }
+    File content = new File("reg.txt");
 
+    public void printTxt() throws FileNotFoundException, UnsupportedEncodingException {
+        jardin p = fChild;
+
+        try {
+            if (content.createNewFile()) {
+                try (PrintWriter w = new PrintWriter("reg.txt", "UTF-8")) {
+                    if (empty()) {
+                        w.println("Registro vacio");
+                        return;
+                    }
+                    w.println("<Registro>");
+                    int i = 1;
+                    do {
+                        w.println("\t<Elemento n°" + i + ">");
+                        w.println("\t\tId:" + p.Id);
+                        w.println("\t\tName:" + p.Name);
+                        w.println("\t\tGender:" + p.Gender);
+                        w.println("\t\tGrade:" + p.Grade);
+                        w.println("\t\tAge:" + p.Age);
+                        w.println("\t</Elemento n°" + i + ">");
+                        p = p.next;
+                        i++;
+                    } while (p != fChild);
+                    w.println("</Registro>");
+                }
+            } else {
+                try (PrintWriter w = new PrintWriter("reg.txt", "UTF-8")) {
+                    if (empty()) {
+                        w.println("Registro vacio");
+                        return;
+                    }
+                    w.println("<Registro>");
+                    int i = 1;
+                    do {
+                        w.println("\t<Elemento n°" + i + ">");
+                        w.println("\t\tId:" + p.Id);
+                        w.println("\t\tName:" + p.Name);
+                        w.println("\t\tGender:" + p.Gender);
+                        w.println("\t\tGrade:" + p.Grade);
+                        w.println("\t\tAge:" + p.Age);
+                        w.println("\t</Elemento n°" + i + ">");
+                        p = p.next;
+                        i++;
+                    } while (p != fChild);
+                    w.println("</Registro>");
+                }
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
+    
 }
