@@ -48,7 +48,7 @@ public class list {
                 } else {
                     j = j.next;
                 }
-            } while (j.next != fChild);
+            } while (j != fChild);
             return null;
         }
     }
@@ -199,22 +199,40 @@ public class list {
         }
     }
 
-    public void Delete(String d) {
+    public void Delete(JTextField d) {
         jardin u = getultimo();
-        jardin j = searchid(d);
-        if (j == fChild) {
+        jardin j = searchid(d.getText());
+        if (j == null) {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado esa id, verifique nuevamente");
+            d.setText("");
+            return;
+        }
+        System.out.println(j.Id);
+        if (fChild.next == fChild) {
+            fChild = null;
+            System.out.println("b");
+            d.setText("");
+        } else if (j == fChild) {
+            System.out.println("a");
             fChild = j.next;
             u.next = fChild;
             fChild.prev = u;
-        } else if (getultimo() == j) {
-            j.prev.next = fChild;
-            fChild.prev = getultimo();
+            d.setText("");
+        } else if (j == getultimo()) {
+            System.out.println("c");
+            jardin a = getultimo().prev;
+            a.next = fChild;
+            fChild.prev = a;
+            d.setText("");
         } else {
+            System.out.println("d");
             jardin a = j.prev;
             jardin b = j.next;
             a.next = b;
             b.prev = a;
+            d.setText("");
         }
+        JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente");
     }
 
     File content = new File("reg.txt");
@@ -271,35 +289,41 @@ public class list {
         }
 
     }
-    public void importer(){
-        try{
+
+    public void importer() {
+        try {
             FileReader file = new FileReader("reg.txt");
             BufferedReader reader = new BufferedReader(file);
-            
-            try{
+            try {
                 String currentLine = reader.readLine();
-                while(true){
+                if (currentLine.startsWith("Registro vacio")) {
+                    return;
+                }
+                while (true) {
                     String aux = currentLine.replace("\t", "");
-                    
-                    if (aux.startsWith("<E")){
+
+                    if (aux.startsWith("<E")) {
                         aux = reader.readLine().replace("\t", "");
                         String[] data = new String[5];
-                        
-                        for (int i = 0; i < 5; i++){
+
+                        for (int i = 0; i < 5; i++) {
                             data[i] = aux.split(":")[1];
                             aux = reader.readLine().replace("\t", "");
                         }
-                        addChildToEnd(data[0],data[1],data[3],data[2],Integer.parseInt(data[4]));
-                    }else if (aux.startsWith("</R")){break;}
-                    
+                        addChildToEnd(data[0], data[1], data[3], data[2], Integer.parseInt(data[4]));
+                    } else if (aux.startsWith("</R")) {
+                        break;
+                    }
+
                     currentLine = reader.readLine();
                 }
-                
+
                 reader.close();
-            }catch(IOException ex){}
-            
-            
-        }catch(FileNotFoundException e){}
+            } catch (IOException ex) {
+            }
+
+        } catch (FileNotFoundException e) {
+        }
     }
 
 }

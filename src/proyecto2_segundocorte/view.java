@@ -171,7 +171,7 @@ public class view extends javax.swing.JFrame {
     }//GEN-LAST:event_saveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        l.Delete(d.getText());
+        l.Delete(d);
         try{
             l.printTxt();
         }catch(IOException e){   
