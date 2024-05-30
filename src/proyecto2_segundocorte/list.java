@@ -14,7 +14,7 @@ import javax.swing.*;
 
 public class list {
 
-    jardin fChild;
+    public jardin fChild;
 
     public list() {
         fChild = null;
@@ -326,4 +326,53 @@ public class list {
         }
     }
 
+    public void reporte1() {
+        if (empty()) {
+            JOptionPane.showMessageDialog(null, "No hay ningun elemento en la lista");
+            return;
+        }
+        jardin p = fChild;
+        int MPr = 0, MJ = 0, FPr = 0, FJ = 0;
+        do {
+            if (p.Gender.equals("Masculino") && p.Grade.equals("Pre-jardin")) {
+                MPr = MPr + 1;
+            } else if (p.Gender.equals("Masculino") && p.Grade.equals("Jardin")) {
+                MJ = MJ + 1;
+            } else if (p.Gender.equals("Femenino") && p.Grade.equals("Pre-jardin")) {
+                FPr = FPr + 1;
+            } else if (p.Gender.equals("Femenino") && p.Grade.equals("Jardin")) {
+                FJ = FJ + 1;
+            }
+            p = p.next;
+        } while (p != fChild);
+        JOptionPane.showMessageDialog(null, "Reportes de estudiantes totales:\n"
+                + "Niños en Prejardin: " + MPr + "\n"
+                + "Niñas en Prejardin: " + FPr + "\n"
+                + "Niños en Jardin: " + MJ + "\n"
+                + "Niñas en Jardin: " + FJ);
+    }
+
+    public void reporte2() {
+        if (empty()) {
+            JOptionPane.showMessageDialog(null, "No hay ningun elemento en la lista");
+            return;
+        }
+        jardin p = fChild;
+        double sum1 = 0, sum2 = 0, cont1 = 0, cont2 = 0;
+        do {
+            if (p.Grade.equals("Pre-jardin")) {
+                sum1 = sum1 + p.Age;
+                cont1++;
+            } else {
+                sum2 = sum2 + p.Age;
+                cont2++;
+            }
+            p = p.next;
+        } while (p != fChild);
+        double prom1 = sum1 / cont1;
+        double prom2 = sum2 / cont2;
+        JOptionPane.showMessageDialog(null, "Promedio de edades por grado:\n"
+                + "Promedio de edades en Prejardin: " + ("%.2f").formatted(prom1) + "\n"
+                + "Promedio de edades en Jardin: " + ("%.2f").formatted(prom2));
+    }
 }

@@ -1,16 +1,24 @@
 package proyecto2_segundocorte;
 
 import java.io.IOException;
+import javax.swing.table.DefaultTableModel;
 
 public class view extends javax.swing.JFrame {
+
     list l = new list();
+
     public view() {
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
         l.importer();
+
+        jardinModel = (DefaultTableModel) jardinList.getModel();
+        prejardinModel = (DefaultTableModel) prejardinList.getModel();
+
+        updateLists();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -22,7 +30,6 @@ public class view extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         i = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         n = new javax.swing.JTextField();
@@ -35,6 +42,13 @@ public class view extends javax.swing.JFrame {
         d = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        prejardinList = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jardinList = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,7 +63,7 @@ public class view extends javax.swing.JFrame {
                 saveActionPerformed(evt);
             }
         });
-        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 70, 30));
+        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 70, 30));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -81,11 +95,6 @@ public class view extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Id:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Genero:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
 
         i.setBackground(new java.awt.Color(204, 204, 204));
         i.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -129,19 +138,92 @@ public class view extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 70, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 70, 30));
 
         d.setBackground(new java.awt.Color(204, 204, 204));
         d.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         d.setForeground(new java.awt.Color(0, 0, 0));
         d.setBorder(null);
-        jPanel1.add(d, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 140, 20));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 170, -1));
+        jPanel1.add(d, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 140, 20));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 170, -1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Ingrese el id a eliminar:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+
+        prejardinList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Prejardin"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(prejardinList);
+        if (prejardinList.getColumnModel().getColumnCount() > 0) {
+            prejardinList.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, 150, 200));
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Genero:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+
+        jardinList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Jardin"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jardinList);
+        if (jardinList.getColumnModel().getColumnCount() > 0) {
+            jardinList.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 150, 200));
+
+        jButton2.setText("Reporte 1");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, -1, -1));
+
+        jButton3.setText("Reporte 2");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,7 +233,7 @@ public class view extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
         );
 
         pack();
@@ -163,56 +245,53 @@ public class view extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         l.addChildToEnd(i, n, ge, gr, a);
-        try{
+
+        updateLists();
+        try {
             l.printTxt();
-        }catch(IOException e){
+        } catch (IOException e) {
         }
-        
+
     }//GEN-LAST:event_saveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         l.Delete(d);
-        try{
+        updateLists();
+        try {
             l.printTxt();
-        }catch(IOException e){   
+        } catch (IOException e) {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(view.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        l.reporte1();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new view().setVisible(true);
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        l.reporte2();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void updateLists() {
+        jardinModel.setRowCount(0);
+        prejardinModel.setRowCount(0);
+
+        jardin current = l.fChild;
+        if (current == null) {
+            return;
+        }
+
+        do {
+            if (current.Grade.equals("Pre-jardin")) {
+                prejardinModel.addRow(new Object[]{current.toString()});
+            } else {
+                jardinModel.addRow(new Object[]{current.toString()});
             }
-        });
+            current = current.next;
+        } while (current != l.fChild);
     }
 
+    private DefaultTableModel jardinModel;
+    private DefaultTableModel prejardinModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSlider a;
     private javax.swing.JTextField d;
@@ -220,19 +299,25 @@ public class view extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> gr;
     private javax.swing.JTextField i;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTable jardinList;
     private javax.swing.JTextField n;
+    private javax.swing.JTable prejardinList;
     private javax.swing.JButton save;
     // End of variables declaration//GEN-END:variables
 }

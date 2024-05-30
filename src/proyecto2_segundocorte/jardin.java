@@ -15,5 +15,9 @@ public class jardin {
         this.Grade = Grade;
         this.Age = Age;
     }
- 
+    
+    @Override
+    public String toString(){
+        return Name + " | " + Gender + " | " + Age + " años";
+    }
 }
